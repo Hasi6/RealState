@@ -37,27 +37,45 @@ export class LocationService {
   public async getAll(query: Query) {
     const filterQuery: FilterQuery<LocationDocument> = {};
 
-    if (query.title) {
-      filterQuery.title = new RegExp(String(query.title), 'i');
-    }
+    if (query.search) {
+      const searchKey = new RegExp(String(query.search), 'i');
+      const isNumericSearch = !isNaN(parseInt(String(query.search)));
+      filterQuery.$or = [
+        { title: searchKey },
+        { location: searchKey },
+        { status: searchKey },
+        { type: searchKey }
+      ];
+      if (isNumericSearch) {
+        filterQuery.$or = [
+          ...filterQuery.$or,
+          { areaSqFt: parseInt(String(query.search)) },
+          { price: parseInt(String(query.search)) }
+        ];
+      }
+    } else {
+      if (query.title) {
+        filterQuery.title = new RegExp(String(query.title), 'i');
+      }
 
-    if (query.location) {
-      filterQuery.location = query.location;
-    }
+      if (query.location) {
+        filterQuery.location = query.location;
+      }
 
-    if (query.status) {
-      filterQuery.status = query.status;
-    }
+      if (query.status) {
+        filterQuery.status = query.status;
+      }
 
-    if (query.type) {
-      filterQuery.type = query.type;
+      if (query.type) {
+        filterQuery.type = query.type;
+      }
     }
 
     const data = await this.locationRepository.find(filterQuery, {
       skip: query.skip,
       limit: query.pageSize
     });
-    const total = await this.locationRepository.count(null);
+    const total = await this.locationRepository.count(filterQuery);
     return paginationBuilder(data, total, query);
   }
 }

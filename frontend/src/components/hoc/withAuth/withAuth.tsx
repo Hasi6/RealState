@@ -23,8 +23,6 @@ export function withAuth<P>(WrappedComponent: React.ComponentType<P>) {
         return;
       }
 
-      console.log(authenticated);
-
       if (authenticated === false) {
         naviagate.push(ROUTES.LOGIN);
         return;
@@ -39,8 +37,8 @@ export function withAuth<P>(WrappedComponent: React.ComponentType<P>) {
         {!loading && permission ? (
           <WrappedComponent {...props} />
         ) : (
-          <div className='h-screen flex'>
-            <div className='m-auto'>
+          <div className="h-screen flex">
+            <div className="m-auto">
               <Spinner size={30} />
             </div>
           </div>

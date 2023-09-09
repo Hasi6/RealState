@@ -57,5 +57,5 @@ function Layout({ children }: { children: React.ReactNode }) {
     );
   };
 
-  return <div className='max-w-[1366px] mx-auto'>{children}</div>;
+  return <>{children}</>;
 }

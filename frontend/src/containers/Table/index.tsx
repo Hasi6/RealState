@@ -13,7 +13,7 @@ export interface Sortable {
   key: string;
 }
 
-namespace HAuthTable {
+namespace TableContainer {
   export interface Column<TAttributes> {
     id: string;
     label?: string;
@@ -26,7 +26,7 @@ namespace HAuthTable {
 }
 
 interface Props<TAttributes> {
-  columns: HAuthTable.Column<TAttributes>[];
+  columns: TableContainer.Column<TAttributes>[];
   data: TAttributes[];
   loading?: boolean;
   selectStatus?: 'full' | 'partial';
@@ -36,13 +36,13 @@ interface Props<TAttributes> {
 
 type Sort = '+' | '-';
 
-function HAuthTable<TAttributes>({
+function TableContainer<TAttributes>({
   columns,
   data,
   loading,
   selectStatus,
   handleSelectAll,
-  meta,
+  meta
 }: Props<TAttributes>): JSX.Element {
   const dispatch = useAppDispatch();
 
@@ -56,7 +56,7 @@ function HAuthTable<TAttributes>({
     dispatch(
       setFilters({
         url: query,
-        params: sortQuery,
+        params: sortQuery
       })
     );
   };
@@ -74,12 +74,12 @@ function HAuthTable<TAttributes>({
                 />
               </>
             ) : (
-              <div className='flex'>
-                <div className='my-auto'>
+              <div className="flex">
+                <div className="my-auto">
                   {column.renderHeader ? column.renderHeader() : column.label}
                 </div>
                 {column.sortable?.key ? (
-                  <div className='ml-[5px]'>
+                  <div className="ml-[5px]">
                     <BiUpArrow
                       className={`cursor-pointer${
                         params['sort'] === `+${column.sortable.key}`
@@ -118,10 +118,10 @@ function HAuthTable<TAttributes>({
         {loading ? (
           <tr>
             <td
-              className='w-full mx-auto'
+              className="w-full mx-auto"
               colSpan={Object.keys(columns).length}
             >
-              <Loader className='mt-[20px] h-[200px] mx-auto' />
+              <Loader className="mt-[20px] h-[200px] mx-auto" />
             </td>
           </tr>
         ) : (
@@ -138,10 +138,10 @@ function HAuthTable<TAttributes>({
                 </tr>
               ))
             ) : (
-              <tr className='py-[20px]'>
+              <tr className="py-[20px]">
                 <td
                   colSpan={columns.length}
-                  className='mx-auto text-center my-[20px]'
+                  className="mx-auto text-center my-[20px]"
                 >
                   No Results
                 </td>
@@ -155,12 +155,12 @@ function HAuthTable<TAttributes>({
 
   return (
     <>
-      <Table className='my-[10px]'>
+      <Table className="my-[10px]">
         <thead>{ths()}</thead>
         <tbody>{rows()}</tbody>
       </Table>
       {meta && (
-        <div className='mx-auto my-[20px]'>
+        <div className="mx-auto my-[20px]">
           <HAuthPagination total={meta?.totalPages} />
         </div>
       )}
@@ -168,4 +168,4 @@ function HAuthTable<TAttributes>({
   );
 }
 
-export default HAuthTable;
+export default TableContainer;

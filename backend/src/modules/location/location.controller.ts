@@ -30,6 +30,7 @@ export class LocationController {
     return successResponseBuilder(data, meta);
   }
 
+  @UseGuards(AuthGuard)
   @Get('/:id')
   public async getOne(@Param('id') id: string) {
     const data = await this.locationService.getOne(id);
