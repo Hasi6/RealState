@@ -19,7 +19,7 @@ async function bootstrap() {
   const port: number = config.get<number>('PORT');
 
   app.useGlobalFilters(new CustomExceptionFilter());
-  app.enableCors({ origin: 'localhost:3000' });
+  app.enableCors({ origin: 'http://localhost:3000' });
   app.setGlobalPrefix('/api/v1');
   app.useGlobalPipes(
     new ValidationPipe({

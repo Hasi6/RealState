@@ -22,7 +22,7 @@ export class AuthController {
   }
 
   @UseGuards(AuthGuard)
-  @Get('/whoAmI')
+  @Get('/current-user')
   public async whoAmI(@Req() req) {
     return successResponseBuilder(req.user);
   }
