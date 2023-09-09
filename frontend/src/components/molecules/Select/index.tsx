@@ -27,13 +27,13 @@ function SelectContainer<T>({
   onChange,
   placeHolder,
   readOnly,
-  value,
+  value
 }: Props<T>) {
   return (
     <>
       {readOnly ? (
-        <div className='flex'>
-          <div className='font-bold mr-[20px]'>{label}: </div>
+        <div className="flex">
+          <div className="font-bold mr-[20px]">{label}: </div>
           <div>{value}</div>
         </div>
       ) : (
@@ -45,7 +45,8 @@ function SelectContainer<T>({
               placeholder={placeHolder}
               // @ts-ignore
               data={data || []}
-              className='mx-[17px]'
+              className="mx-[17px]"
+              clearable={true}
             />
           ) : (
             <Select
@@ -53,16 +54,17 @@ function SelectContainer<T>({
               placeholder={placeHolder}
               // @ts-ignore
               data={data || []}
-              className='mx-[17px]'
+              className="mx-[17px]"
+              clearable={true}
               value={value}
               onChange={(e) => {
-                if (onChange && e) {
-                  onChange(e);
+                if (onChange) {
+                  onChange(e || '');
                 }
               }}
             />
           )}
-          {error ? <p className='text-[#bb4343]'>{error}</p> : null}
+          {error ? <p className="text-[#bb4343]">{error}</p> : null}
           {helpText ? <span>{helpText}</span> : null}
         </>
       )}

@@ -20,8 +20,8 @@ export const API_ROUTES = {
     CURRENT_USER: '/auth/current-user',
     LOGIN: '/auth/login'
   },
-  LOCATION: {
-    BASE: '/location'
+  PROPERTY: {
+    BASE: '/property'
   }
 };
 

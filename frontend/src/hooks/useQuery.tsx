@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useState } from 'react';
 import { notifications } from '@mantine/notifications';
 
@@ -46,7 +47,11 @@ function useQuery<Resource>({
       }
     };
     try {
-      const finalUrl = filters ? `${url}?${filters}` : url;
+      let finalUrl = filters ? `${url}?${filters}` : url;
+      if (pageSize) {
+        const symbol = finalUrl.includes('?') ? '&' : '?';
+        finalUrl = `${finalUrl}${symbol}pageSize=${pageSize}`;
+      }
       const response = await http.get(`${finalUrl}`, headers);
       setLoading(false);
       setData(response?.data?.data);

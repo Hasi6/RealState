@@ -9,11 +9,13 @@ interface Props {
 
 const Header: FC<Props> = ({ header }) => {
   return (
-    <div className='flex justify-between mx-[100px]'>
-      <div>{header}</div>
+    <div className="flex justify-between mx-[100px] py-[10px]">
+      <div className="text-2xl">{header}</div>
       <div>
-        <Link href={ROUTES.HOME}>Home</Link>
-        <Link href={ROUTES.DASHBOARD}>
+        <Link className="mx-[10px] font-bold" href={ROUTES.HOME}>
+          Home
+        </Link>
+        <Link href={ROUTES.DASHBOARD} className="mx-[10px] font-bold">
           <ButtonContainer>Add Property</ButtonContainer>
         </Link>
       </div>

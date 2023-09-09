@@ -21,7 +21,7 @@ export function withUnAuth<P>(WrappedComponent: React.ComponentType<P>) {
       }
 
       if (authenticated === true) {
-        navigate.push(ROUTES.HOME);
+        navigate.push(ROUTES.DASHBOARD);
         return;
       }
       if (authenticated === false) {
@@ -34,8 +34,8 @@ export function withUnAuth<P>(WrappedComponent: React.ComponentType<P>) {
         {permission ? (
           <WrappedComponent {...props} />
         ) : (
-          <div className='h-screen flex'>
-            <div className='m-auto'>Loading</div>
+          <div className="h-screen flex">
+            <div className="m-auto">Loading</div>
           </div>
         )}
       </>

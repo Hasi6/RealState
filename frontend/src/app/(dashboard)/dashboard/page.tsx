@@ -64,11 +64,11 @@ const generateFilterSchema = (): Filters.Filter[] => {
 
 function Dashboard() {
   const { data, loading, meta, retry } = useQuery<PropertyZ[]>({
-    url: `${API_ROUTES.LOCATION.BASE}`
+    url: `${API_ROUTES.PROPERTY.BASE}`
   });
 
   const { mutate, loading: deleteLoading } = useMutation({
-    url: API_ROUTES.LOCATION.BASE
+    url: API_ROUTES.PROPERTY.BASE
   });
 
   const generateColumn = (): TableContainer.Column<PropertyZ>[] => {
@@ -159,7 +159,7 @@ function Dashboard() {
         {},
         HTTP_TYPES.DELETE,
         {},
-        `${API_ROUTES.LOCATION.BASE}/${id}`
+        `${API_ROUTES.PROPERTY.BASE}/${id}`
       );
 
       if (res.success) {

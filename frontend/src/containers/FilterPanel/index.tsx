@@ -1,3 +1,4 @@
+'use client';
 import { Button, Select } from '@mantine/core';
 import { FC, useEffect, useState } from 'react';
 import queryString from 'query-string';
@@ -60,7 +61,7 @@ const FilterPanel: FC<Props> = ({ filters }) => {
     dispatch(
       setFilters({
         params,
-        url,
+        url
       })
     );
 
@@ -82,7 +83,7 @@ const FilterPanel: FC<Props> = ({ filters }) => {
     dispatch(
       setFilters({
         url: query,
-        params: simpleSearch,
+        params: simpleSearch
       })
     );
   };
@@ -101,7 +102,7 @@ const FilterPanel: FC<Props> = ({ filters }) => {
     dispatch(
       setFilters({
         url: query,
-        params: advancedFilters,
+        params: advancedFilters
       })
     );
   };
@@ -119,14 +120,14 @@ const FilterPanel: FC<Props> = ({ filters }) => {
       case 'input':
         return (
           <InputContainer
-            className='px-0 !py-0 my-0 bg-transparent w-[200px]'
+            className="px-0 !py-0 my-0 bg-transparent w-[200px]"
             id={filter.id}
             key={filter.id}
             label={filter.label}
             onChange={(e) =>
               setAdvancedFilters({
                 ...advancedFilters,
-                [filter.id]: e,
+                [filter.id]: e
               })
             }
             value={advancedFilters[filter.id]}
@@ -135,14 +136,14 @@ const FilterPanel: FC<Props> = ({ filters }) => {
       case 'select':
         return (
           <Select
-            className='mx-[17px] w-[200px]'
+            className="mx-[17px] w-[200px]"
             data={filter.options || []}
             key={filter.id}
             label={filter.label}
             onChange={(e) =>
               setAdvancedFilters({
                 ...advancedFilters,
-                [filter.id]: String(e),
+                [filter.id]: String(e)
               })
             }
             value={advancedFilters[filter.id]}
@@ -151,14 +152,14 @@ const FilterPanel: FC<Props> = ({ filters }) => {
       default:
         return (
           <InputContainer
-            className='p-0'
+            className="p-0"
             id={filter.id}
             key={filter.id}
             label={filter.label}
             onChange={(e) =>
               setAdvancedFilters({
                 ...advancedFilters,
-                [filter.id]: e,
+                [filter.id]: e
               })
             }
             value={advancedFilters[filter.id]}
@@ -185,30 +186,30 @@ const FilterPanel: FC<Props> = ({ filters }) => {
   };
 
   return (
-    <div className='flex' key={nonce}>
-      <div className=''>
+    <div className="flex" key={nonce}>
+      <div className="">
         {isAdvanced && filters?.length ? (
-          <div className='grid grid-cols-4 gap-1 w-full'>
+          <div className="grid grid-cols-4 gap-1 w-full">
             {filters.map(renderFilter)}
           </div>
         ) : (
           <InputContainer
-            className='px-0 !py-0 my-0 bg-transparent !w-[200px]'
-            id='search'
-            label='Search'
+            className="px-0 !py-0 my-0 bg-transparent !w-[200px]"
+            id="search"
+            label="Search"
             onChange={(e) => setSearch(e)}
             value={search}
           />
         )}
 
-        <div className='mx-[10px] mt-[20px]'>
+        <div className="mx-[10px] mt-[20px]">
           <Button
             onClick={
               isAdvanced && filters?.length
                 ? handleAdvancedSearch
                 : handleSimpleSearch
             }
-            className='bg-blue-500 h-[38px] mx-[5px] disabled:cursor-not-allowed'
+            className="bg-blue-500 h-[38px] mx-[5px] disabled:cursor-not-allowed"
             disabled={!canSearch()}
           >
             Search
@@ -216,7 +217,7 @@ const FilterPanel: FC<Props> = ({ filters }) => {
           {filters && (
             <Button
               onClick={toggleFilters}
-              className='bg-blue-500 h-[38px] mx-[5px] disabled:cursor-not-allowed'
+              className="bg-blue-500 h-[38px] mx-[5px] disabled:cursor-not-allowed"
             >
               {isAdvanced && filters?.length
                 ? 'Simple Filters'
@@ -226,7 +227,7 @@ const FilterPanel: FC<Props> = ({ filters }) => {
           {Object.keys(params).length > 0 && (
             <Button
               onClick={handleClearParams}
-              className='bg-orange-500 hover:bg-orange-600 h-[38px] mx-[5px] disabled:cursor-not-allowed'
+              className="bg-orange-500 hover:bg-orange-600 h-[38px] mx-[5px] disabled:cursor-not-allowed"
             >
               Clear
             </Button>

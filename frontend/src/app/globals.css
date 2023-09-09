@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.mantine-AppShell-main {
+  min-height: calc(100vh - 100px) !important;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Montserrat&family=Poppins&family=Roboto&family=Slabo+13px&family=Sofia&family=Ubuntu+Mono&display=swap');
+
+.poppins {
+  font-family: 'Poppins', sans-serif !important;
+}

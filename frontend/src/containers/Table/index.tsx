@@ -1,3 +1,4 @@
+'use client';
 import { Checkbox, Loader, Table } from '@mantine/core';
 import queryString from 'query-string';
 import { BiUpArrow, BiDownArrow } from 'react-icons/bi';

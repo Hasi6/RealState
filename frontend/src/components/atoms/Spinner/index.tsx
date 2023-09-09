@@ -6,7 +6,9 @@ interface Props {
 }
 
 const Spinner: FC<Props> = ({ size }) => {
-  return <BiLoaderAlt className='animate-spin' style={{ fontSize: size }} />;
+  return (
+    <BiLoaderAlt className="animate-spin mx-auto" style={{ fontSize: size }} />
+  );
 };
 
 export default Spinner;

@@ -146,7 +146,7 @@ const PropertyModal: FC<Props> = ({
       {open && (
         <ModalContainer
           onClose={() => setOpen(false)}
-          title="Create New Location"
+          title={isEdit ? 'Update property' : 'Add new property'}
         >
           <FormContainer
             initialValues={
@@ -170,15 +170,15 @@ const PropertyModal: FC<Props> = ({
             uiSchema={generateUISchema()}
             url={
               isEdit
-                ? `${API_ROUTES.LOCATION.BASE}/${id}`
-                : API_ROUTES.LOCATION.BASE
+                ? `${API_ROUTES.PROPERTY.BASE}/${id}`
+                : API_ROUTES.PROPERTY.BASE
             }
           />
         </ModalContainer>
       )}
       <Group position="right">
         <Button className="bg-blue-500" onClick={() => setOpen(true)}>
-          {icon ?? 'New Location'}
+          {icon ?? 'New Property'}
         </Button>
       </Group>
     </>

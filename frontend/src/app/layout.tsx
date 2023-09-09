@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 
-import Header from '@/components/molecules/Header';
 import { Providers } from '@/store/Provider';
 import { getQueryParams } from '@/utils/queryParams';
 import { useAppDispatch } from '@/hooks/useRedux';
@@ -13,23 +12,25 @@ import { checkUser } from '@/store/slices/user';
 import './globals.css';
 
 export default function RootLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
+    <html lang="en">
+      <head>
+        <title>Real Estate</title>
+      </head>
       <Providers>
-        <body className='w-full'>
+        <body className="w-full">
           <MantineProvider
             withGlobalStyles
             withNormalizeCSS
             theme={{
-              colorScheme: 'light',
+              colorScheme: 'light'
             }}
           >
             <Notifications />
-            <Header header='Real Estate' />
             <Layout>{children}</Layout>
           </MantineProvider>
         </body>
@@ -52,7 +53,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     dispatch(
       setFilters({
         url,
-        params,
+        params
       })
     );
   };
