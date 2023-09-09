@@ -18,11 +18,11 @@ export enum PropertyStatus {
 
 export const locationZ = z.object({
   _id: z.string().nonempty(),
-  areaSqFt: z.number(),
+  areaSqFt: z.string(),
   description: z.string().nonempty(),
   image: z.string().nonempty(),
   location: z.nativeEnum(PropertyLocation),
-  price: z.number(),
+  price: z.string(),
   slug: z.string().nonempty(),
   status: z.nativeEnum(PropertyStatus),
   title: z.string().nonempty(),
@@ -30,3 +30,17 @@ export const locationZ = z.object({
 });
 
 export type LocationZ = z.infer<typeof locationZ>;
+
+export const locationCreateSchema = z.object({
+  areaSqFt: z.string().nonempty(),
+  description: z.string().nonempty(),
+  image: z.string().nonempty(),
+  location: z.nativeEnum(PropertyLocation),
+  price: z.string().nonempty(),
+  slug: z.string().nonempty(),
+  status: z.nativeEnum(PropertyStatus),
+  title: z.string().nonempty(),
+  type: z.nativeEnum(PropertyType)
+});
+
+export type LocationCreateSchema = z.infer<typeof locationCreateSchema>;

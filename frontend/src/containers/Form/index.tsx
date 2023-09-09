@@ -1,5 +1,5 @@
 import { Button, Checkbox } from '@mantine/core';
-import { useForm, zodResolver } from '@mantine/form';
+import { UseFormReturnType, useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';
 
 import InputContainer from '@/components/molecules/Input';
@@ -7,6 +7,7 @@ import { HTTP_TYPES } from '@/utils/constants';
 import { useMutation } from '@/hooks/useMutate';
 import SelectContainer from '@/components/molecules/Select';
 import DateInputContainer from '@/components/molecules/DateInputContainer';
+import TextAreaContainer from '@/components/molecules/TextArea';
 
 namespace FormContainer {
   export interface UISchema {
@@ -14,9 +15,18 @@ namespace FormContainer {
     label?: string;
     helperText?: string;
     placeHolder?: string;
-    field: 'input' | 'checkbox' | 'select' | 'dateinput';
+    field:
+      | 'input'
+      | 'checkbox'
+      | 'select'
+      | 'dateinput'
+      | 'textarea'
+      | 'component';
     type?: 'email' | 'password' | 'text' | 'number';
     options?: SelectOption[];
+    render?: (
+      form: UseFormReturnType<object, (values: object) => object>
+    ) => React.ReactNode;
   }
 
   export interface SelectOption {
@@ -52,16 +62,16 @@ function FormContainer<T>({
   schema,
   submitButtonName,
   uiSchema,
-  url,
+  url
 }: Props<T>) {
   const form = useForm({
     initialValues,
     validate: zodResolver(schema),
-    validateInputOnBlur: true,
+    validateInputOnBlur: true
   });
 
   const { mutate, loading } = useMutation({
-    url: url || '',
+    url: url || ''
   });
 
   const onSubmit = async (data: object) => {
@@ -82,6 +92,9 @@ function FormContainer<T>({
 
   const renderFormComponent = (schema: FormContainer.UISchema) => {
     switch (schema.field) {
+      case 'component': {
+        return schema.render ? schema.render(form) : '';
+      }
       case 'input': {
         return (
           <InputContainer
@@ -103,7 +116,7 @@ function FormContainer<T>({
             // @ts-ignore
             checked={initialValues[schema.id] ?? false}
             {...form.getInputProps(schema.id, { type: 'checkbox' })}
-            className='mx-[17px]'
+            className="mx-[17px]"
           />
         );
       }
@@ -118,7 +131,7 @@ function FormContainer<T>({
             label={schema.label}
             placeHolder={schema.placeHolder}
             data={schema.options || []}
-            className='mx-[17px]'
+            className="mx-[17px]"
           />
         );
       }
@@ -132,7 +145,19 @@ function FormContainer<T>({
             value={initialValues?.[schema.id]}
             label={schema.label}
             placeHolder={schema.placeHolder}
-            className='mx-[17px]'
+            className="mx-[17px]"
+          />
+        );
+      }
+      case 'textarea': {
+        return (
+          <TextAreaContainer
+            form={form}
+            id={schema.id}
+            key={schema.id}
+            label={schema.label}
+            readOnly={readOnly}
+            type={schema.type}
           />
         );
       }
@@ -160,7 +185,7 @@ function FormContainer<T>({
   return (
     <form onSubmit={form.onSubmit(onSubmit)}>
       {uiSchema.map((schema) => (
-        <div className='my-[15px]' key={schema.id}>
+        <div className="my-[15px]" key={schema.id}>
           {renderFormComponent(schema)}
         </div>
       ))}
@@ -168,30 +193,30 @@ function FormContainer<T>({
       {!readOnly && (
         <>
           {isEdit ? (
-            <div className='mt-[10px] flex mx-[17px]'>
+            <div className="mt-[10px] flex mx-[17px]">
               <Button
-                className='bg-orange-500 hover:bg-orange-600 mr-[10px]'
+                className="bg-orange-500 hover:bg-orange-600 mr-[10px]"
                 disabled={loading}
                 onClick={handleCancel}
               >
                 Cancel
               </Button>
               <Button
-                className='bg-blue-500 hover:bg-blue-600'
+                className="bg-blue-500 hover:bg-blue-600"
                 loading={loading}
-                type='submit'
+                type="submit"
                 disabled={!form.isDirty() || !form.isValid()}
               >
                 Save
               </Button>
             </div>
           ) : (
-            <div className='mx-[16px]'>
+            <div className="mx-[16px]">
               <Button
                 loading={loading}
-                type='submit'
+                type="submit"
                 disabled={!form.isValid() || canSubmit}
-                className='bg-blue-500 text-black mt-[20px] w-full'
+                className="bg-blue-500 text-black mt-[20px] w-full"
               >
                 {submitButtonName ?? 'Submit'}
               </Button>

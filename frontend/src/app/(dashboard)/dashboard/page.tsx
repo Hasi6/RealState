@@ -2,6 +2,7 @@
 import { AiOutlineEdit } from 'react-icons/ai';
 import { FiTrash } from 'react-icons/fi';
 import { compose } from 'lodash/fp';
+import { Image } from '@mantine/core';
 
 import TableContainer from '@/containers/Table';
 import { useQuery } from '@/hooks/useQuery';
@@ -17,6 +18,8 @@ import { useMutation } from '@/hooks/useMutate';
 import { notifications } from '@mantine/notifications';
 import FilterPanel, { Filters } from '@/containers/FilterPanel';
 import { withFilters } from '@/components/hoc/withFilters/withFilters';
+import LocationModal from '@/components/molecules/LocationModal';
+import ButtonContainer from '@/components/atoms/Button';
 
 const generateFilterSchema = (): Filters.Filter[] => {
   return [
@@ -72,7 +75,16 @@ function Dashboard() {
     return [
       {
         id: 'image',
-        label: 'Image'
+        label: 'Image',
+        render: (attributes) => (
+          <Image
+            className="cursor-pointer"
+            maw={80}
+            radius="md"
+            src={attributes.image}
+            alt={attributes.title}
+          />
+        )
       },
       {
         id: 'title',
@@ -108,16 +120,31 @@ function Dashboard() {
       },
       {
         id: 'actions',
-        render: (attributes) => {
+        render: ({ _id, ...rest }) => {
           return (
             <div className="flex">
-              <AiOutlineEdit className="mx-[10px] cursor-pointer" />
+              <LocationModal
+                onAfterSuccess={retry}
+                icon={<AiOutlineEdit className="mx-[10px] cursor-pointer" />}
+                initialValues={{
+                  ...rest,
+                  price: String(rest.price),
+                  areaSqFt: String(rest.areaSqFt)
+                }}
+                id={_id}
+                isEdit={true}
+              />
+
               <ConfirmModal
                 description="Are you sure you want to delete this location? this actions can't be undone."
-                iconButton={<FiTrash className="text-red-400 cursor-pointer" />}
+                iconButton={
+                  <ButtonContainer className="bg-red-500 hover:bg-red-600 mx-[10px]">
+                    <FiTrash className="text-white cursor-pointer" />
+                  </ButtonContainer>
+                }
                 loading={deleteLoading}
-                onConfirm={() => handleDeleteLocation(attributes._id)}
-                title={`Delete ${attributes.title}?`}
+                onConfirm={() => handleDeleteLocation(_id)}
+                title={`Delete ${rest.title}?`}
               />
             </div>
           );
@@ -159,7 +186,8 @@ function Dashboard() {
   };
 
   return (
-    <>
+    <div className="pt-0">
+      <LocationModal onAfterSuccess={retry} />
       <FilterPanel filters={generateFilterSchema()} />
       <TableContainer
         columns={generateColumn()}
@@ -167,7 +195,7 @@ function Dashboard() {
         loading={loading}
         meta={meta}
       />
-    </>
+    </div>
   );
 }
 

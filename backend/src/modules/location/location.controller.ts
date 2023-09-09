@@ -46,16 +46,19 @@ export class LocationController {
   }
 
   @UseGuards(AuthGuard)
+  @Put('/:id')
+  public async update(
+    @Body() body: CreateLocationDTO,
+    @Param('id') id: string
+  ) {
+    const res = await this.locationService.update(id, body);
+    return successResponseBuilder(res);
+  }
+
+  @UseGuards(AuthGuard)
   @Delete('/:id')
   public async delete(@Param('id') id: string) {
     const data = await this.locationService.deleteOne(id);
     return successResponseBuilder(data);
-  }
-
-  @UseGuards(AuthGuard)
-  @Put('/:id')
-  public async update(@Body() body: CreateLocationDTO) {
-    const res = await this.locationService.create(body);
-    return successResponseBuilder(res);
   }
 }
