@@ -3,6 +3,6 @@ export function successResponseBuilder(data: object, meta?: object) {
     data,
     errors: [],
     meta,
-    success: true,
+    success: true
   };
 }

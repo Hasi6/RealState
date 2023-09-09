@@ -3,12 +3,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { DatabaseModule } from '@/modules/database/database.module';
 import {
-  LocationDocument,
-  LocationSchema
-} from '@/modules/location/location.schema';
-import { LocationController } from '@/modules/location/location.controller';
-import { LocationService } from '@/modules/location/location.service';
-import { LocationRepository } from '@/modules/location/location.repository';
+  PropertyDocument,
+  PropertySchema
+} from '@/modules/property/property.schema';
+import { PropertyController } from '@/modules/property/property.controller';
+import { PropertyService } from '@/modules/property/property.service';
+import { PropertyRepository } from '@/modules/property/property.repository';
 import { AuthModule } from '@/modules/auth/auth.module';
 import { UserModule } from '@/modules/user/user.module';
 import { JwtModule } from '@nestjs/jwt';
@@ -29,12 +29,12 @@ import { JwtModule } from '@nestjs/jwt';
     }),
     DatabaseModule.forFeature([
       {
-        name: LocationDocument.name,
-        schema: LocationSchema
+        name: PropertyDocument.name,
+        schema: PropertySchema
       }
     ])
   ],
-  controllers: [LocationController],
-  providers: [LocationService, LocationRepository, ConfigService]
+  controllers: [PropertyController],
+  providers: [PropertyService, PropertyRepository, ConfigService]
 })
-export class LocationModule {}
+export class PropertyModule {}

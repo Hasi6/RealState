@@ -21,9 +21,9 @@ export enum PropertyLocation {
 @Schema({
   versionKey: false,
   timestamps: true,
-  collection: 'location'
+  collection: 'property'
 })
-export class LocationDocument extends AbstractDocument {
+export class PropertyDocument extends AbstractDocument {
   @Prop()
   title: string;
 
@@ -61,4 +61,4 @@ export class LocationDocument extends AbstractDocument {
   areaSqFt: number;
 }
 
-export const LocationSchema = SchemaFactory.createForClass(LocationDocument);
+export const PropertySchema = SchemaFactory.createForClass(PropertyDocument);

@@ -16,7 +16,7 @@ export enum PropertyStatus {
   Rent = 'Rent'
 }
 
-export const locationZ = z.object({
+export const propertyZ = z.object({
   _id: z.string().nonempty(),
   areaSqFt: z.string(),
   description: z.string().nonempty(),
@@ -29,9 +29,9 @@ export const locationZ = z.object({
   type: z.nativeEnum(PropertyType)
 });
 
-export type LocationZ = z.infer<typeof locationZ>;
+export type PropertyZ = z.infer<typeof propertyZ>;
 
-export const locationCreateSchema = z.object({
+export const propertyCreateSchema = z.object({
   areaSqFt: z.string().nonempty(),
   description: z.string().nonempty(),
   image: z.string().nonempty(),
@@ -43,4 +43,4 @@ export const locationCreateSchema = z.object({
   type: z.nativeEnum(PropertyType)
 });
 
-export type LocationCreateSchema = z.infer<typeof locationCreateSchema>;
+export type PropertyCreateSchema = z.infer<typeof propertyCreateSchema>;

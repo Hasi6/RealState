@@ -6,7 +6,7 @@ import { ConfigModule } from '@/modules/config/config.module';
 import { DatabaseModule } from '@/modules/database/database.module';
 import { AuthModule } from '@/modules/auth/auth.module';
 import { UserModule } from '@/modules/user/user.module';
-import { LocationModule } from '@/modules/location/location.module';
+import { PropertyModule } from '@/modules/property/property.module';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { LocationModule } from '@/modules/location/location.module';
     DatabaseModule,
     AuthModule,
     UserModule,
-    LocationModule,
+    PropertyModule,
     JwtModule.registerAsync({
       imports: [forwardRef(() => ConfigModule)],
       useFactory: (configService: ConfigService) => ({

@@ -7,24 +7,23 @@ import {
   Param,
   Post,
   Put,
-  Query,
   Req,
   UseGuards
 } from '@nestjs/common';
 
-import { LocationService } from '@/modules/location/location.service';
-import { CreateLocationDTO } from '@/modules/location/location.dto';
+import { PropertyService } from '@/modules/property/property.service';
+import { PropertyDTO } from '@/modules/property/property.dto';
 import { successResponseBuilder } from '@/utils/responseBuilder';
 import { queryParamsWithPageDetails } from '@/utils/paginationBuilder';
 import { AuthGuard } from '@/guards/auth.guard';
 
-@Controller('location')
-export class LocationController {
-  constructor(private readonly locationService: LocationService) {}
+@Controller('property')
+export class PropertyController {
+  constructor(private readonly propertyService: PropertyService) {}
 
   @Get('/')
   public async getAll(@Req() req) {
-    const { data, meta } = await this.locationService.getAll(
+    const { data, meta } = await this.propertyService.getAll(
       queryParamsWithPageDetails(req)
     );
     return successResponseBuilder(data, meta);
@@ -33,32 +32,29 @@ export class LocationController {
   @UseGuards(AuthGuard)
   @Get('/:id')
   public async getOne(@Param('id') id: string) {
-    const data = await this.locationService.getOne(id);
+    const data = await this.propertyService.getOne(id);
     return successResponseBuilder(data);
   }
 
   @UseGuards(AuthGuard)
   @Post('/')
   @HttpCode(201)
-  public async create(@Body() body: CreateLocationDTO) {
-    const res = await this.locationService.create(body);
+  public async create(@Body() body: PropertyDTO) {
+    const res = await this.propertyService.create(body);
     return successResponseBuilder(res);
   }
 
   @UseGuards(AuthGuard)
   @Put('/:id')
-  public async update(
-    @Body() body: CreateLocationDTO,
-    @Param('id') id: string
-  ) {
-    const res = await this.locationService.update(id, body);
+  public async update(@Body() body: PropertyDTO, @Param('id') id: string) {
+    const res = await this.propertyService.update(id, body);
     return successResponseBuilder(res);
   }
 
   @UseGuards(AuthGuard)
   @Delete('/:id')
   public async delete(@Param('id') id: string) {
-    const data = await this.locationService.deleteOne(id);
+    const data = await this.propertyService.deleteOne(id);
     return successResponseBuilder(data);
   }
 }

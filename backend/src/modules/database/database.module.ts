@@ -9,11 +9,11 @@ import { ConfigModule } from '@/modules/config/config.module';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        uri: configService.get('MONGO_URI'),
+        uri: configService.get('MONGO_URI')
       }),
-      inject: [ConfigService],
-    }),
-  ],
+      inject: [ConfigService]
+    })
+  ]
 })
 export class DatabaseModule {
   static forFeature(models: ModelDefinition[]) {

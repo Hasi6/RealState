@@ -7,18 +7,18 @@ import { Image } from '@mantine/core';
 import TableContainer from '@/containers/Table';
 import { useQuery } from '@/hooks/useQuery';
 import {
-  LocationZ,
+  PropertyZ,
   PropertyLocation,
   PropertyStatus,
   PropertyType
-} from '@/models/location';
+} from '@/models/property';
 import { API_ROUTES, HTTP_TYPES, MESSAGES } from '@/utils/constants';
 import ConfirmModal from '@/components/organisms/ConfirmModal';
 import { useMutation } from '@/hooks/useMutate';
 import { notifications } from '@mantine/notifications';
 import FilterPanel, { Filters } from '@/containers/FilterPanel';
 import { withFilters } from '@/components/hoc/withFilters/withFilters';
-import LocationModal from '@/components/molecules/LocationModal';
+import PropertyModal from '@/components/molecules/PropertyModal';
 import ButtonContainer from '@/components/atoms/Button';
 
 const generateFilterSchema = (): Filters.Filter[] => {
@@ -63,7 +63,7 @@ const generateFilterSchema = (): Filters.Filter[] => {
 };
 
 function Dashboard() {
-  const { data, loading, meta, retry } = useQuery<LocationZ[]>({
+  const { data, loading, meta, retry } = useQuery<PropertyZ[]>({
     url: `${API_ROUTES.LOCATION.BASE}`
   });
 
@@ -71,7 +71,7 @@ function Dashboard() {
     url: API_ROUTES.LOCATION.BASE
   });
 
-  const generateColumn = (): TableContainer.Column<LocationZ>[] => {
+  const generateColumn = (): TableContainer.Column<PropertyZ>[] => {
     return [
       {
         id: 'image',
@@ -123,7 +123,7 @@ function Dashboard() {
         render: ({ _id, ...rest }) => {
           return (
             <div className="flex">
-              <LocationModal
+              <PropertyModal
                 onAfterSuccess={retry}
                 icon={<AiOutlineEdit className="mx-[10px] cursor-pointer" />}
                 initialValues={{
@@ -187,7 +187,7 @@ function Dashboard() {
 
   return (
     <div className="pt-0">
-      <LocationModal onAfterSuccess={retry} />
+      <PropertyModal onAfterSuccess={retry} />
       <FilterPanel filters={generateFilterSchema()} />
       <TableContainer
         columns={generateColumn()}

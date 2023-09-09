@@ -3,7 +3,6 @@ import {
   IsNotEmpty,
   IsNumber,
   IsString,
-  Max,
   MaxLength
 } from 'class-validator';
 
@@ -11,9 +10,9 @@ import {
   PropertyLocation,
   PropertyStatus,
   PropertyType
-} from '@/modules/location/location.schema';
+} from '@/modules/property/property.schema';
 
-export class CreateLocationDTO {
+export class PropertyDTO {
   @IsNotEmpty()
   @MaxLength(100)
   title: string;

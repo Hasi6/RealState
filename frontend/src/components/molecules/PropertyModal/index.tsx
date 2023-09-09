@@ -9,20 +9,20 @@ import {
   PropertyLocation,
   PropertyStatus,
   PropertyType,
-  locationCreateSchema,
-  LocationCreateSchema
-} from '@/models/location';
+  propertyCreateSchema,
+  PropertyCreateSchema
+} from '@/models/property';
 import ImagePicker from '@/components/molecules/ImagePicker';
 
 interface Props {
   id?: string;
-  initialValues?: LocationCreateSchema;
+  initialValues?: PropertyCreateSchema;
   isEdit?: boolean;
   onAfterSuccess: () => void;
   icon?: React.ReactNode;
 }
 
-const LocationModal: FC<Props> = ({
+const PropertyModal: FC<Props> = ({
   id,
   initialValues,
   isEdit,
@@ -122,7 +122,7 @@ const LocationModal: FC<Props> = ({
     ];
   };
 
-  const handleBeforeSubmit = (data: LocationCreateSchema) => {
+  const handleBeforeSubmit = (data: PropertyCreateSchema) => {
     return {
       areaSqFt: parseInt(data.areaSqFt),
       description: data.description,
@@ -166,7 +166,7 @@ const LocationModal: FC<Props> = ({
             onBeforeSubmit={handleBeforeSubmit}
             onSuccess={handleSuccess}
             isEdit={isEdit}
-            schema={locationCreateSchema}
+            schema={propertyCreateSchema}
             uiSchema={generateUISchema()}
             url={
               isEdit
@@ -185,4 +185,4 @@ const LocationModal: FC<Props> = ({
   );
 };
 
-export default LocationModal;
+export default PropertyModal;
