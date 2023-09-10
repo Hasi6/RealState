@@ -78,3 +78,13 @@ Follow these steps to get your project up and running.
 
 - email: hasitha.chandula@gmail.com
 - password: password
+
+### Diagrams
+
+##### System Architecture
+
+![System Architecture](./RealEstate.drawio.png)
+
+##### ERD
+
+![System Architecture](./RealEstate-Page-2.drawio.png)
