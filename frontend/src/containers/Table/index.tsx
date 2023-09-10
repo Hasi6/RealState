@@ -10,10 +10,6 @@ import { Query } from '@/containers/FilterPanel';
 import { setFilters } from '@/store/slices/filters';
 import { useAppDispatch } from '@/hooks/useRedux';
 
-export interface Sortable {
-  key: string;
-}
-
 namespace TableContainer {
   export interface Column<TAttributes> {
     id: string;
@@ -21,7 +17,6 @@ namespace TableContainer {
     onClick?: Function;
     render?: (attributes: TAttributes) => React.ReactNode;
     renderHeader?: () => React.ReactNode;
-    sortable?: Sortable;
     width?: number;
   }
 }
@@ -79,32 +74,6 @@ function TableContainer<TAttributes>({
                 <div className="my-auto">
                   {column.renderHeader ? column.renderHeader() : column.label}
                 </div>
-                {column.sortable?.key ? (
-                  <div className="ml-[5px]">
-                    <BiUpArrow
-                      className={`cursor-pointer${
-                        params['sort'] === `+${column.sortable.key}`
-                          ? ' text-black'
-                          : ' text-gray-600'
-                      }`}
-                      onClick={() =>
-                        handleClickSort(`${column?.sortable?.key}`, '+')
-                      }
-                    />
-                    <BiDownArrow
-                      className={`cursor-pointer${
-                        params['sort'] === `-${column.sortable.key}`
-                          ? ' text-black'
-                          : ' text-gray-600'
-                      }`}
-                      onClick={() =>
-                        handleClickSort(`${column?.sortable?.key}`, '-')
-                      }
-                    />
-                  </div>
-                ) : (
-                  <></>
-                )}
               </div>
             )}
           </th>

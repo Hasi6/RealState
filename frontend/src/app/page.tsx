@@ -1,4 +1,6 @@
 'use client';
+import { Center } from '@mantine/core';
+
 import Spinner from '@/components/atoms/Spinner';
 import Header from '@/components/molecules/Header';
 import HomeBackground from '@/components/molecules/HomeBackground';
@@ -7,7 +9,6 @@ import PropertyGrid from '@/components/organisms/PropertyGrid';
 import { useQuery } from '@/hooks/useQuery';
 import { PropertyZ } from '@/models/property';
 import { API_ROUTES } from '@/utils/constants';
-import { Center, Text } from '@mantine/core';
 
 export default function Home() {
   const { data, loading, meta } = useQuery<PropertyZ[]>({

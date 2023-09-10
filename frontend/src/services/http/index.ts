@@ -2,8 +2,8 @@ import axios from 'axios';
 import { ACCESS_TOKEN } from '@/utils/constants';
 
 const http = axios.create({
-  baseURL: 'http://localhost:5000/api/v1',
-  timeout: 30000 * 2,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  timeout: 30000 * 2
 });
 
 http.interceptors.request.use(async (config: any) => {
